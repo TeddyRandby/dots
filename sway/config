@@ -184,18 +184,20 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Wayland default floats
-  for_window [app_id="firefox" title="Firefox — Sharing Indicator"] floating enable
-  for_window [app_id="firefox" title="Picture-in-Picture"] floating enable
-  for_window [app_id="firefox" title="Pushbullet – Mozilla Firefox"] floating enable
-  for_window [app_id="firefox" title="About Mozilla Firefox"] floating enable
+for_window [app_id="firefox" title="Firefox — Sharing Indicator"] floating enable
+for_window [app_id="firefox" title="Picture-in-Picture"] floating enable
+for_window [app_id="firefox" title="Pushbullet – Mozilla Firefox"] floating enable
+for_window [app_id="firefox" title="About Mozilla Firefox"] floating enable
 
 include /etc/sway/config.d/*
 
 # Borders
-  # Also removes all title bars
-# for_window [class="^.*"] border pixel 2
+# Also removes all title bars
 default_border pixel 2
 default_floating_border pixel 2
+
+smart_borders on
+smart_gaps on
 
 
   # Set colours various window states
@@ -230,10 +232,8 @@ client.unfocused         #16161d #16161d #c0caf5 #16161d   #16161d
 # the inner affects spacing around each view
 # the outer affects the spacing around each workspace
 # To reduce or remove outer gaps, outer gaps can be set to a negative value.
-gaps inner 1
-gaps outer 5
-gaps top 1
-gaps bottom 1
+gaps inner 4
+gaps outer 1
 
 # Audio
 exec pipewire
@@ -242,22 +242,18 @@ exec pipewire
 exec wl-past -t text --watch clipman store
 
 #Notification Daemon
-exec_always {
-  pkill mako
-  mako &
-}
+exec mako
 
 # Output profiles
-exec_always {
-  pkill kanshi
-  kanshi &
-}
+exec kanshi
+
 #Sway autotiling
 exec autotiling
-output * max_render_time 35
 
 # Wayland/wlroots desktop portal - for screen sharing
 exec --no-startup-id /usr/libexec/xdg-desktop-portal-wlr -r
+
+output * max_render_time 35
 
 # Status Bar
 bar {

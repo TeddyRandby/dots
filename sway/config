@@ -197,7 +197,7 @@ default_border pixel 2
 default_floating_border pixel 2
 
 smart_borders on
-smart_gaps on
+smart_gaps off
 
 
   # Set colours various window states
@@ -233,7 +233,7 @@ client.unfocused         #16161d #16161d #c0caf5 #16161d   #16161d
 # the outer affects the spacing around each workspace
 # To reduce or remove outer gaps, outer gaps can be set to a negative value.
 gaps inner 4
-gaps outer 1
+gaps outer 8
 
 # Audio
 exec pipewire
@@ -242,10 +242,16 @@ exec pipewire
 exec wl-past -t text --watch clipman store
 
 #Notification Daemon
-exec mako
+exec_always {
+  killall mako
+  exec mako
+}
 
 # Output profiles
-exec kanshi
+exec_always {
+  killall kanshi
+  exec kanshi
+}
 
 #Sway autotiling
 exec autotiling

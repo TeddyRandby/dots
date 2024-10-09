@@ -1,6 +1,6 @@
 stylesheet=style.css
-colorscolors.rasi
-show=drun
+colors=colors.rasi
 insensitive=true
-prompt=
-
+show=drun
+eh=2
+lines=8

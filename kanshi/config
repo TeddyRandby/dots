@@ -3,6 +3,6 @@ profile nomad {
 }
 
 profile docked {
-  output 'Sharp Corporation 0x14D1 Unknown' mode 1920x1200 position 1080,0 enable
-  output 'HP Inc. HP VH240a 6CM0350FV7' mode 1920x1080 position 0,0 transform 90 enable
+  output 'Sharp Corporation 0x14D1 Unknown' mode 1920x1200 position 1920,0 enable
+  output 'HP Inc. HP VH240a 6CM0350FV7' mode 1920x1080 position 0,0 enable
 }

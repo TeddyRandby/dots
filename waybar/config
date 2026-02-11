@@ -1,9 +1,7 @@
 {
   "layer": "top",
   "modules-left": [
-    "custom/launcher",
-    "cpu",
-    "memory",
+    "clock",
     "sway/window"
   ],
   "modules-center": [
@@ -15,6 +13,9 @@
     "battery",
     "network"
   ],
+  "clock": {
+    "format": "{:%B %d (%R)}",
+  },
   "pulseaudio": {
     "tooltip": false,
     "scroll-step": 5,
@@ -75,7 +76,7 @@
     "on-click-right": "killall wofi"
   },
   "sway/window": {
-    "max-length": 20,
+    "max-length": 50,
     "tooltip": false
   }
 }

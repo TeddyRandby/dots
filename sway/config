@@ -10,8 +10,12 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term kitty
-set $menu wofi -c ~/.config/wofi/config | xargs swaymsg exec --
+set $term alacritty
+set $menu $term --class fzf-menu --title Launcher -e ~/.local/bin/fzf-menu
+set $edit $term --class fzf-edit --title Launcher -e ~/.local/bin/fzf-edit
+
+for_window [app_id="fzf-menu" title="Launcher"] floating enable, resize set 50ppt 30ppt, border none
+for_window [app_id="fzf-edit" title="Launcher"] floating enable, resize set 50ppt 30ppt, border none
 
 ### Idle configuration
 #
@@ -27,7 +31,7 @@ set $menu wofi -c ~/.config/wofi/config | xargs swaymsg exec --
 # resumed. It will also lock your screen before your computer goes to sleep.
 output * background ~/.config/sway/bg.png fill
 
-font JetBrainsMono Nerd Font Mono 10
+font JetBrainsMono Nerd Font Mono 14
 
 ### Input configuration
 # You can get the names of your inputs by running: swaymsg -t get_inputs
@@ -45,6 +49,9 @@ font JetBrainsMono Nerd Font Mono 10
 
   # Start your launcher
   bindsym $mod+d exec $menu
+
+  bindsym $mod+o exec $edit
+
 
 	# Screenshot utils
 	bindsym Print exec shotman -c output
@@ -125,7 +132,6 @@ font JetBrainsMono Nerd Font Mono 10
   # Switch the current container between different layout styles
   bindsym $mod+s layout stacking
   bindsym $mod+w layout tabbed
-  bindsym $mod+e layout toggle split
 
   # Make the current focus fullscreen
   bindsym $mod+f fullscreen
@@ -184,19 +190,19 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Wayland default floats
-for_window [app_id="firefox" title="Firefox — Sharing Indicator"] floating enable
-for_window [app_id="firefox" title="Picture-in-Picture"] floating enable
-for_window [app_id="firefox" title="Pushbullet – Mozilla Firefox"] floating enable
-for_window [app_id="firefox" title="About Mozilla Firefox"] floating enable
+#for_window [app_id="firefox" title="Firefox — Sharing Indicator"] floating enable
+#for_window [app_id="firefox" title="Picture-in-Picture"] floating enable
+#for_window [app_id="firefox" title="Pushbullet – Mozilla Firefox"] floating enable
+#for_window [app_id="firefox" title="About Mozilla Firefox"] floating enable
 
 include /etc/sway/config.d/*
 
 # Borders
 # Also removes all title bars
-default_border pixel 2
-default_floating_border pixel 2
+default_border pixel 3
+default_floating_border pixel 3
 
-smart_borders on
+smart_borders off
 smart_gaps off
 
 
@@ -232,8 +238,8 @@ client.unfocused         #16161d #16161d #c0caf5 #16161d   #16161d
 # the inner affects spacing around each view
 # the outer affects the spacing around each workspace
 # To reduce or remove outer gaps, outer gaps can be set to a negative value.
-gaps inner 4
-gaps outer 8
+gaps inner 10
+gaps outer 20
 
 # Audio
 exec pipewire

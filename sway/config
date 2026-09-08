@@ -10,12 +10,12 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term alacritty
-set $menu $term --class fzf-menu --title Launcher -e ~/.local/bin/fzf-menu
-set $edit $term --class fzf-edit --title Launcher -e ~/.local/bin/fzf-edit
+set $term ghostty
+set $menu $term --class=fzf.menu -e ~/.local/bin/fzf-menu
+set $edit $term --class=fzf.edit -e ~/.local/bin/fzf-edit
 
-for_window [app_id="fzf-menu" title="Launcher"] floating enable, resize set 50ppt 30ppt, border none
-for_window [app_id="fzf-edit" title="Launcher"] floating enable, resize set 50ppt 30ppt, border none
+for_window [app_id="fzf.menu"] floating enable, resize set 30ppt 50ppt, border pixel 4
+for_window [app_id="fzf.edit"] floating enable, resize set 30ppt 50ppt, border pixel 4
 
 ### Idle configuration
 #
@@ -31,7 +31,7 @@ for_window [app_id="fzf-edit" title="Launcher"] floating enable, resize set 50pp
 # resumed. It will also lock your screen before your computer goes to sleep.
 output * background ~/.config/sway/bg.png fill
 
-font JetBrainsMono Nerd Font Mono 14
+font JetBrainsMono Nerd Font Mono 10
 
 ### Input configuration
 # You can get the names of your inputs by running: swaymsg -t get_inputs
@@ -189,57 +189,20 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Wayland default floats
-#for_window [app_id="firefox" title="Firefox — Sharing Indicator"] floating enable
-#for_window [app_id="firefox" title="Picture-in-Picture"] floating enable
-#for_window [app_id="firefox" title="Pushbullet – Mozilla Firefox"] floating enable
-#for_window [app_id="firefox" title="About Mozilla Firefox"] floating enable
-
 include /etc/sway/config.d/*
 
-# Borders
-# Also removes all title bars
-default_border pixel 3
-default_floating_border pixel 3
+default_border pixel 4
+default_floating_border pixel 4
 
 smart_borders off
 smart_gaps off
 
+client.focused           #74c7ec #36363d #c0caf5 #b4bbfe  #b4bbfe
+client.focused_inactive  #9aa5ce #16161d #c0caf5 #16161d  #16161d
+client.unfocused         #9aa5ce #16161d #c0caf5 #16161d  #16161d
 
-  # Set colours various window states
-  # Syntax: client.<class> <border> <background> <text> [<indicator> [<child_border>]]
-  # The available classes are:
-    # client.focused: The window that has focus.
-    # client.focused_inactive: The most recently focused view within a container which is not focused.
-    # client.placeholder: Ignored (present for i3 compatibility).
-    # client.unfocused: A view that does not have focus.
-    # client.urgent: A view with an urgency hint. Note: Native Wayland windows do not support urgency. Urgency only works for Xwayland windows.
-#The meaning of each color is:
-    # border: The border around the title bar.
-    # background: The background of the title bar.
-    # text: The text color of the title bar.
-    # indicator: The color used to indicate where a new view will open. In a tiled container, this would paint the right border of the current view if a new view would be opened to the right.
-    # child_border: The border around the view itself.
-# The default colors are:
-    # class	        border	background	text    indicator	child_border			
-    # background	n/a	    #ffffff     n/a	    n/a	        n/a
-    # focused	    #4c7899	#285577	    #ffffff	#2e9ef4	    #285577
-    # focused_inactive	#333333	#5f676a	#ffffff	#484e50	    #5f676a
-    # unfocused	    #333333	#222222	    #888888	#292d2e	    #222222
-    # urgent	    #2f343a	#900000	    #ffffff	#900000	    #900000
-    # placeholder	#000000	#0c0c0c	    #ffffff	#000000 	#0c0c0c
-client.focused           #9aa5ce #36363d #c0caf5 #36363d   #36363d
-client.focused_inactive  #16161d #16161d #c0caf5 #16161d   #16161d
-client.unfocused         #16161d #16161d #c0caf5 #16161d   #16161d
-
-# Gaps
-# gaps inner|outer|horizontal|vertical|top|right|bottom|left <amount>
-# Sets default amount pixels of inner or outer gap
-# the inner affects spacing around each view
-# the outer affects the spacing around each workspace
-# To reduce or remove outer gaps, outer gaps can be set to a negative value.
-gaps inner 10
-gaps outer 20
+gaps inner 5
+gaps outer 5
 
 # Audio
 exec pipewire
@@ -269,5 +232,20 @@ output * max_render_time 35
 
 # Status Bar
 bar {
-	swaybar_command waybar
+  id "bar"
+
+  font JetBrainsMono Nerd Font Mono 14
+
+  position bottom
+
+  workspace_buttons yes
+
+  pango_markup enabled
+  status_command while ~/.local/bin/swaybar-status.sh; do sleep 1; done;
+
+  colors {
+    background #00000000
+    inactive_workspace #00000000 #00000000 #c0caf5
+    focused_workspace #00000000 #c0caf5 #16161d
+  }
 }

@@ -14,8 +14,8 @@ set $term ghostty
 set $menu $term --class=fzf.menu -e ~/.local/bin/fzf-menu
 set $edit $term --class=fzf.edit -e ~/.local/bin/fzf-edit
 
-for_window [app_id="fzf.menu"] floating enable, resize set 30ppt 50ppt, border pixel 4
-for_window [app_id="fzf.edit"] floating enable, resize set 30ppt 50ppt, border pixel 4
+for_window [app_id="fzf.menu"] floating enable, resize set 30ppt 50ppt, border pixel 3
+for_window [app_id="fzf.edit"] floating enable, resize set 30ppt 50ppt, border pixel 3
 
 ### Idle configuration
 #
@@ -191,8 +191,8 @@ bindsym $mod+r mode "resize"
 
 include /etc/sway/config.d/*
 
-default_border pixel 4
-default_floating_border pixel 4
+default_border pixel 3
+default_floating_border pixel 3
 
 smart_borders off
 smart_gaps off
@@ -241,7 +241,7 @@ bar {
   workspace_buttons yes
 
   pango_markup enabled
-  status_command while ~/.local/bin/swaybar-status.sh; do sleep 1; done;
+  status_command while ~/.local/bin/swaybar-status.sh; do sleep 0.1s; done;
 
   colors {
     background #00000000
